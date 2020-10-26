@@ -1,0 +1,28 @@
+# データバインディング
+  data (jsファイル)と UI (htmlフアイル)を結び付けるという意味で、双方向というのは data を更新すれば UI が更新されて、 UI を更新すれば data が更新されるという意味になります。
+
+# for文
+  <li v-for="todo in todos">{{ todo }}</li>
+
+# 項目追加
+## htmlファイル
+    <form @submit.prevent="addItem">
+      <input type="text" v-model="newItem">
+      <input type="submit" value="Add">
+    </form>
+## jsファイル
+      addItem: function() {
+        this.todos.push(this.newItem);
+        this.newItem = '';
+      },
+
+# 項目削除
+## htmlファイル
+  <span @click="deleteItem(index)" class="command">[x]</span>
+
+## jsファイル
+      deleteItem: function(index) {
+        if (confirm('are you sure?')) {
+          this.todos.splice(index, 1);
+        }
+      }
