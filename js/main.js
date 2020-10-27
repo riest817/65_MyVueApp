@@ -1,40 +1,39 @@
 (function() {
   'use strict';
 
-  // two way data binding (to UI)
-  var vm = new Vue({
+  var likeComponent = Vue.extend({
+    // props: ['message'],
+    props: {
+      message: {
+        type: String,
+        default: 'Like'
+      }
+    },
+    data: function() {
+      return {
+        count: 0
+      }
+    },
+    template: '<button @click="countUp">{{ message }} {{ count }}</button>',
+    methods: {
+      countUp: function() {
+        this.count++;
+        this.$emit('increment');
+      }
+    }
+  });
+
+  var app = new Vue({
     el: '#app',
+    components: {
+      'like-component': likeComponent
+    },
     data: {
-      newItem: '',
-      todos: [{
-        title: 'task1',
-        isDone: false
-      },{
-        title: 'task2',
-        isDone: false
-      },{
-        title: 'task3',
-        isDone: true
-      }]
+      total: 0
     },
     methods: {
-      // addItem: function(e) {
-      //   e.preventDefault();
-      //   this.todos.push(this.newItem);
-      // }
-      addItem: function() {
-        var item = {
-          title: this.newItem,
-          isDone: false
-        }
-        this.todos.push(item);
-        this.newItem = '';
-      },
-      
-      deleteItem: function(index) {
-        if (confirm('are you sure?')) {
-          this.todos.splice(index, 1);
-        }
+      incrementTotal: function() {
+        this.total++;
       }
     }
   });

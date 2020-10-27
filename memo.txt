@@ -26,3 +26,7 @@
           this.todos.splice(index, 1);
         }
       }
+
+# v-if v-for
+  同じタグ内にある場合は、v-ifよりもv-forが先に実行される
+
